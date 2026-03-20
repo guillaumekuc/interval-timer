@@ -1,0 +1,337 @@
+:root {
+  --bg: #141414;
+  --card: #222222;
+  --surface: #2d2d2d;
+  --surface-hover: #363636;
+  --text: #f4f4f4;
+  --text-muted: #9ca3af;
+  --sage: #a9ba9d;
+  --sage-pressed: #97a88c;
+  --accent-line: #a9ba9d;
+  --radius-card: 20px;
+  --radius-control: 12px;
+  --radius-round: 999px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+input {
+  font: inherit;
+  color: inherit;
+}
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.timer-card {
+  width: min(100%, 340px);
+  background: var(--card);
+  border-radius: var(--radius-card);
+  padding: 22px 22px 26px;
+  position: relative;
+  user-select: none;
+}
+
+.timer-card__pip {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--text);
+  opacity: 0.85;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.timer-card__pip:hover {
+  background: var(--surface);
+  opacity: 1;
+}
+
+.timer-card__pip[hidden] {
+  display: none;
+}
+
+.timer-card__pip i {
+  font-size: 1rem;
+}
+
+.timer-card__time {
+  text-align: center;
+  font-size: 2.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  margin: 44px 0 28px;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 8px 4px;
+  transition: background 0.15s;
+}
+
+.timer-card__time:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.timer-card__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.ctrl-round {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-round);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, background 0.15s;
+}
+
+.ctrl-round:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.ctrl-round--primary {
+  background: var(--sage);
+  color: #111;
+}
+
+.ctrl-round--primary:hover:not(:disabled) {
+  background: var(--sage-pressed);
+}
+
+.ctrl-round--ghost {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ctrl-round--ghost:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+/* Loop off: same as other ghost controls. Loop on: filled sage like primary (clear “enabled” feedback). */
+.ctrl-round--loop.is-on {
+  background: var(--sage);
+  color: #111;
+}
+
+.ctrl-round--loop.is-on:hover:not(:disabled) {
+  background: var(--sage-pressed);
+}
+
+.ctrl-round i {
+  font-size: 1.05rem;
+}
+
+/* Edit overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.edit-panel {
+  width: min(100%, 380px);
+  background: var(--card);
+  border-radius: var(--radius-card);
+  padding: 20px 20px 22px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.edit-panel__head {
+  margin-bottom: 20px;
+}
+
+.edit-panel__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.time-rail {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-control);
+  padding: 12px 10px 14px;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.time-rail::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent-line);
+  border-radius: 2px;
+  opacity: 0.85;
+}
+
+.time-rail__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.time-seg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.time-seg__chev {
+  width: 28px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border-radius: 6px;
+}
+
+.time-seg__chev i {
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+.time-seg__chev:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.time-seg__box {
+  min-width: 52px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.15s;
+}
+
+.time-seg__box.is-active {
+  background: var(--surface);
+}
+
+.time-seg__input {
+  width: 52px;
+  padding: 6px 4px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  outline: none;
+  border-radius: 8px;
+}
+
+.time-seg__input:focus {
+  background: var(--surface);
+}
+
+.sep {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0 2px;
+  padding-top: 22px;
+}
+
+.edit-actions {
+  display: flex;
+  margin-top: 22px;
+}
+
+.edit-actions__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: var(--radius-control);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.15s, transform 0.12s;
+}
+
+.edit-actions__btn:active {
+  transform: scale(0.98);
+}
+
+.edit-actions__btn--validate {
+  background: var(--sage);
+  color: #111;
+}
+
+.edit-actions__btn--validate:hover {
+  background: var(--sage-pressed);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
