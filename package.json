@@ -1,6 +1,7 @@
 {
   "name": "interval-timer",
   "private": true,
+  "homepage": "https://guillaumekuc.github.io/interval-timer/",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
