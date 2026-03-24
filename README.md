@@ -26,19 +26,7 @@ Open the URL Vite prints (usually `http://localhost:5173`). Production build: `n
 
 ### GitHub Pages
 
-Live site (after setup): **[https://guillaumekuc.github.io/interval-timer/](https://guillaumekuc.github.io/interval-timer/)**
-
-1. In the repo on GitHub: **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
-3. Push to `main`; the **Deploy GitHub Pages** workflow builds with `BASE_PATH=/interval-timer` and publishes `dist`.
-
-First deploy may take a minute; refresh the Pages URL if you see 404. To test a production build locally:
-
-```bash
-# PowerShell
-$env:BASE_PATH="/interval-timer"; npm run build; npm run preview
-# Then open the printed URL — path includes /interval-timer/
-```
+**Live site:** [guillaumekuc.github.io/interval-timer](https://guillaumekuc.github.io/interval-timer/) — deploys on push to `main` via `.github/workflows/pages.yml`.
 
 ### Features
 
